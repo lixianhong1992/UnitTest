@@ -43,6 +43,20 @@
     WAIT;
 }
 
+
+- (void)testAsynSleepOnMainThread {
+    
+    sleep(4);//在主线程的延迟与timeOut无关
+    //进入该方法就开始计时
+    NSOperationQueue *queue = [[NSOperationQueue alloc]init];
+    [queue addOperationWithBlock:^{
+        //模拟网络请求
+        
+        NOTIFY;//在这里通知已经完成
+    }];
+    WAIT;
+}
+
 - (void)testAysn2{
 
     XCTestExpectation *exp = [self expectationWithDescription:@"时间超时"];
